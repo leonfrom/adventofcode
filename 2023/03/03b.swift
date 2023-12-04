@@ -25,22 +25,6 @@ struct Point: Hashable {
 func solvePuzzle(input: [String]) -> Int {
     let newInput = input.map { Array($0) }
 
-    func checkGearSymbols(input: [[Character]], row: Int, startColumn: Int, endColumn: Int, number: Int) {
-        let startY: Int = max(row - 1, 0)
-        let endY: Int = min(row + 1, input.count - 1)
-        let startX: Int = max(startColumn - 1, 0)
-        let endX: Int = min(endColumn + 1, input[row].count - 1)
-
-        for y in startY...endY {
-            for x in startX...endX {
-                if input[y][x] == "*" {
-                    let point: Point = Point(x: x, y: y)
-                    gears[point] = gears[point] != nil ? gears[point]! + [number] : [number]
-                }
-            }
-        }
-    }
-
     var gears: [Point: [Int]] = [:]
 
     var result = 0
@@ -58,7 +42,19 @@ func solvePuzzle(input: [String]) -> Int {
                     number.append(newInput[y][lastDigitX])
                 }
 
-                checkGearSymbols(input: newInput, row: y, startColumn: x, endColumn: lastDigitX, number: Int(number)!)
+                let startY: Int = max(y - 1, 0)
+                let endY: Int = min(y + 1, newInput.count - 1)
+                let startX: Int = max(x - 1, 0)
+                let endX: Int = min(lastDigitX + 1, newInput[y].count - 1)
+
+                for y in startY...endY {
+                    for x in startX...endX {
+                        if newInput[y][x] == "*" {
+                            let point: Point = Point(x: x, y: y)
+                            gears[point] = gears[point] != nil ? gears[point]! + [Int(number)!] : [Int(number)!]
+                        }
+                    }
+                }
 
                 x = lastDigitX + 1
             } else {
