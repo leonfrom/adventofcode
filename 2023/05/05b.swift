@@ -72,11 +72,12 @@ func solvePuzzle(input: [String]) -> Int {
     let htl = lineToSeedMap(line: maps[7].split(separator: ":\n")[1])
 
     for seedRange in seeds {
-        for seed in seedRange[0]...seedRange[0] + seedRange[1] {
+        for seed in seedRange[0]..<seedRange[0] + seedRange[1] {
             var stsD: Int = seed
             for map in sts {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(seed)) {
                     stsD = seed - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -84,6 +85,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in stf {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(stsD)) {
                     stfD = stsD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -91,6 +93,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in ftw {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(stfD)) {
                     ftwD = stfD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -98,6 +101,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in wtl {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(ftwD)) {
                     wtlD = ftwD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -105,6 +109,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in ltt {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(wtlD)) {
                     lttD = wtlD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -112,6 +117,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in tth {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(lttD)) {
                     tthD = lttD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
@@ -119,6 +125,7 @@ func solvePuzzle(input: [String]) -> Int {
             for map in htl {
                 if ((map.sourceStart..<map.sourceStart + map.rangeLength).contains(tthD)) {
                     htlD = tthD - map.sourceStart + map.destinationStart
+                    break
                 }
             }
 
