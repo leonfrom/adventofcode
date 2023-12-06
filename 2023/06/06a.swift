@@ -20,13 +20,20 @@ func solvePuzzle(input: [String]) -> Int {
                                     .map { return $0.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var possibleTimes: [[Int]] = []
+    var possibleDistances: [[Int]] = []
 
     for (index, bestTime) in times.enumerated() {
         possibleTimes.append([])
+        possibleDistances.append([])
         for time in (0...Int(bestTime)!) {
             let distance = time * (Int(bestTime)! - time)
             if (distance > Int(distances[index])!) {
                 possibleTimes[index].append(time)
+                possibleDistances[index].append(time)
+            }
+
+            if (possibleDistances[index].count != 0 && distance < possibleDistances[index].last! && distance < Int(distances[index])!) {
+                break
             }
         }
     }

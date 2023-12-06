@@ -22,11 +22,18 @@ func solvePuzzle(input: [String]) -> Int {
                                     .joined(separator: "")
 
     var possibleTimes: [Int] = []
+    var possibleDistances: [Int] = []
 
     for time in (0...Int(bestTime)!) {
         let distance = time * (Int(bestTime)! - time)
+
         if (distance > Int(bestDistance)!) {
             possibleTimes.append(time)
+            possibleDistances.append(distance)
+        }
+
+        if (possibleDistances.count != 0 && distance < possibleDistances.last! && distance < Int(bestDistance)!) {
+            break
         }
     }
 
