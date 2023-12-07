@@ -41,7 +41,7 @@ func solvePuzzle(input: [String]) -> Int {
     return output
 }
 
-print("AoC Day 06a")
+print("AoC Day 06b")
 let testPassing: Bool = testSolution == solvePuzzle(input: testInput)
 print("Test passing? \(testPassing)")
 if (testPassing) {
